@@ -12,6 +12,7 @@
  * 
  ****************************************************************************/
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -28,10 +29,11 @@ public class gameScene extends JFrame
 	    gameScene frame = new gameScene();
 	    
 	    frame.setTitle("Connect 4");
-	    frame.setSize(850, 850);
+	    frame.setSize(900,900);
 	    frame.setLocationRelativeTo(null);
+	    frame.getContentPane().setLayout(null);
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.setVisible(true);	    
+	    frame.setVisible(true);
 	}
 	
 	public gameScene()
@@ -41,7 +43,8 @@ public class gameScene extends JFrame
 	    
 	    // Makes an 8 x 8 grid
 	    board.setLayout(new GridLayout(6, 8));
-	    board.setSize(1100, 1100);
+	    board.setSize(720,540);
+	    board.setLocation(80,50);
 	    
 	    Spot spots[][] = new Spot[6][8];
 	    
@@ -50,13 +53,47 @@ public class gameScene extends JFrame
 	    	for (int j = 0; j < 8; j++)
 	    	{
 	    		Spot spot = new Spot();
+	    		spot.setSize(90,90);
 	    		board.add(spot);
 	    		
 	    		try
 	    		{
-	    		    Image img = ImageIO.read(getClass().getResource("resources/spot.PNG"));
+	    		    Image img = ImageIO.read(getClass().getResource("resources/spot.jpg"));
 	    		    spot.setIcon(new ImageIcon(img));
-	    		    spot.setSize(100,100);
+	    		    
+	    		    spot.addMouseListener(new MouseListener()
+	    		    {
+	    		    	@Override
+					    public void mouseClicked(MouseEvent e)
+					    {
+					    	// TODO Auto-generated method stub 
+					    }
+
+						@Override
+						public void mouseEntered(MouseEvent e)
+						{
+							// TODO Auto-generated method stub
+						}
+
+						@Override
+						public void mouseExited(MouseEvent e)
+						{
+							// TODO Auto-generated method stub
+						}
+
+						@Override
+						public void mousePressed(MouseEvent e)
+						{
+							// TODO Auto-generated method stub
+							System.out.print("Hello, World!");
+						}
+
+						@Override
+						public void mouseReleased(MouseEvent arg0) {
+							// TODO Auto-generated method stub
+							
+						}
+	    		    });
 	    		}
 	    		
 	    		catch (Exception e) {}
