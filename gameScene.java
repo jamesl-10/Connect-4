@@ -12,9 +12,7 @@
  * 
  ****************************************************************************/
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.*;
@@ -23,7 +21,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class gameScene extends JFrame
-{
+{	
+	private static int turnNumber = 0;
+	
 	public static void main(String[] args) 
 	{	
 	    gameScene frame = new gameScene();
@@ -95,6 +95,7 @@ public class gameScene extends JFrame
 	    	{
 	    		Spot spot = new Spot();
 	    		spot.setSize(90,90);
+	    		spots[i][j] = spot;
 	    		board.add(spot);
 	    		
 	    		try
@@ -149,8 +150,15 @@ public class gameScene extends JFrame
 
 class Spot extends JButton
 {
+	
+	
 	// Constructor
 	public Spot()
+	{
+		
+	}
+	
+	public void addCoin(int x)
 	{
 		
 	}
