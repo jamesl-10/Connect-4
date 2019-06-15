@@ -4,132 +4,86 @@
  * Created on: June 2019
  * Created for: ICS4U
  * Connect 4 code, main game
- *
- *
- * Still needs : 
- * 
- * - Literally everything
  * 
  ****************************************************************************/
 
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.Image;
+//Java program to illustrate the CardLayout Class 
+import java.awt.*; 
 import java.awt.event.*;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.*; 
 
-public class gameScene extends JFrame
-{	
+//class extends JFrame and implements actionlistener 
+public class gameScene extends JPanel
+{
 	private static int turnNumber = 0;
+    private static boolean gameOver = false;
+
+public gameScene(ActionListener action)
+{		
+	this.setLayout(null);
+	JPanel board = new JPanel();  
+	// Makes an 8 x 8 grid
+    board.setLayout(new GridLayout(6, 8));
+    board.setBounds(100, 100, 720, 540);
+    
+	JButton backButton = new JButton();
+	backButton.addActionListener(action);
+	backButton.setBounds(100, 700, 300, 100);
+	backButton.setText("Back");
+    
+	JLabel winnerLabel = new JLabel();
+	winnerLabel.setBounds(500,700,300,100);
+	winnerLabel.setFont(new Font("Arial Unicode MS", Font.PLAIN, 30));
 	
-	public static void main(String[] args) 
-	{	
-	    gameScene frame = new gameScene();
-	    
-	    frame.setTitle("Connect 4");
-	    frame.setSize(900,900);
-	    frame.setLocationRelativeTo(null);
-	    frame.getContentPane().setLayout(null);
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.setVisible(true);
-	    
-	    JButton backButton = new JButton();
-	    backButton.setSize(120,100);
-	    backButton.setLocation(80, 700);
-	    backButton.setText("Back");
-	    frame.add(backButton);
-	    
-	    backButton.addMouseListener(new MouseListener()
-	    {
-	    	@Override
-		    public void mouseClicked(MouseEvent e)
-		    {
-		    	// TODO Auto-generated method stub 
-		    }
+    
+    Player p1 = new Player("James", "Blue");
+    Player p2 = new Player("Chloe", "White");
 
-			@Override
-			public void mouseEntered(MouseEvent e)
-			{
-				// TODO Auto-generated method stub
-			}
+    Spot spots[][] = new Spot[8][6];
+    
+    for (int i = 0; i < 6; i++)
+    {
+    	for (int j = 0; j < 8; j++)
+    	{
+    		Spot spot = new Spot(j,i);
+    		spot.setSize(90,90);
+    		spots[j][i] = spot;
+    		board.add(spot);
+    		
+    		try
+    		{
+    		    Image img = ImageIO.read(getClass().getResource("resources/spot.jpg"));
+    		    spot.setIcon(new ImageIcon(img));
+    		     
+    		    spot.addMouseListener(new MouseListener()
+    		    {
+    		    	@Override
+				    public void mouseClicked(MouseEvent e)
+				    {
+				    	// TODO Auto-generated method stub 
+				    }
 
-			@Override
-			public void mouseExited(MouseEvent e)
-			{
-				// TODO Auto-generated method stub
-			}
+					@Override
+					public void mouseEntered(MouseEvent e)
+					{
+						// TODO Auto-generated method stub
+					}
 
-			@Override
-			public void mousePressed(MouseEvent e)
-			{
-				// TODO Auto-generated method stub
-				System.out.print("Hello, World!");
-			}
+					@Override
+					public void mouseExited(MouseEvent e)
+					{
+						// TODO Auto-generated method stub
+					}
 
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-	    });
-	}
-	
-	public gameScene()
-	{
-		// Creates a panel for the board
-	    JPanel board = new JPanel();
-	    
-	    // Makes an 8 x 8 grid
-	    board.setLayout(new GridLayout(6, 8));
-	    board.setSize(720,540);
-	    board.setLocation(80,50);
-	    
-	    Player p1 = new Player("James", "Blue");
-	    Player p2 = new Player("Shu", "White");
-	    
-	    Spot spots[][] = new Spot[8][6];
-	    
-	    for (int i = 0; i < 6; i++)
-	    {
-	    	for (int j = 0; j < 8; j++)
-	    	{
-	    		Spot spot = new Spot(j,i);
-	    		spot.setSize(90,90);
-	    		spots[j][i] = spot;
-	    		board.add(spot);
-	    		
-	    		try
-	    		{
-	    		    Image img = ImageIO.read(getClass().getResource("resources/spot.jpg"));
-	    		    spot.setIcon(new ImageIcon(img));
-	    		    
-	    		    spot.addMouseListener(new MouseListener()
-	    		    {
-	    		    	@Override
-					    public void mouseClicked(MouseEvent e)
-					    {
-					    	// TODO Auto-generated method stub 
-					    }
-
-						@Override
-						public void mouseEntered(MouseEvent e)
+					@Override
+					public void mousePressed(MouseEvent e)
+					{
+						// TODO Auto-generated method stub
+						if (!gameOver)
 						{
-							// TODO Auto-generated method stub
-						}
-
-						@Override
-						public void mouseExited(MouseEvent e)
-						{
-							// TODO Auto-generated method stub
-						}
-
-						@Override
-						public void mousePressed(MouseEvent e)
-						{
-							// TODO Auto-generated method stub
 							if (spot.getCoin() == null)
 							{
 								String coinColor = "";
@@ -191,7 +145,8 @@ public class gameScene extends JFrame
 												winner = p2.getName();
 											}
 											
-											System.out.print("The winner is " + winner);
+											winnerLabel.setText("The winner is " + winner);
+											gameOver = true;
 										}
 									}
 								}
@@ -199,25 +154,29 @@ public class gameScene extends JFrame
 								turnNumber += 1;
 							}
 						}
+					}
 
-						@Override
-						public void mouseReleased(MouseEvent arg0) {
-							// TODO Auto-generated method stub
+					@Override
+					public void mouseReleased(MouseEvent arg0)
+					{
+						// TODO Auto-generated method stub
 							
-						}
-	    		    });
-	    		}
-	    		
-	    		catch (Exception e) {}
-	    		
-	    		spots[j][i] = spot;
+					}
+				});
 	    	}
+	    		
+	    	catch (Exception e) {}
+	    		
+	    	spots[j][i] = spot;
 	    }
-	    
-	    add(board);
-	}
-	
-	public boolean hasWinner(Spot[][] spots, Spot s)
+    }
+    
+    this.add(board);
+    this.add(backButton);
+    this.add(winnerLabel);
+ } 
+   
+ public boolean hasWinner(Spot[][] spots, Spot s)
 	{
 		if (s.getCoin() != null)
 		{
@@ -307,81 +266,5 @@ public class gameScene extends JFrame
 		}
 		
 		return false;
-	}
-}
-
-class Spot extends JButton
-{
-	private Coin coin;
-	private int xPos;
-	private int yPos;
-	
-	// Constructor
-	public Spot(int xPos, int yPos)
-	{
-		this.xPos = xPos;
-		this.yPos = yPos;
-	}
-	
-	public void addCoin(Coin c)
-	{
-		this.coin = c;
-	}
-	
-	public Coin getCoin()
-	{
-		return this.coin;
-	}
-	
-	public int getXPos()
-	{
-		return xPos;
-	}
-	
-	public int getYPos()
-	{
-		return yPos;
-	}
-}
-
-class Coin
-{
-	private String color;
-	
-	public Coin(String color)
-	{
-		this.color = color;
-	}
-	
-	public String getColor()
-	{
-		return color;
-	}
-}
-
-class Board extends JPanel
-{
-	
-}
-
-class Player
-{
-	private String name;
-	private String color;
-	
-	public Player(String name, String color)
-	{
-		this.name = name;
-		this.color = color;
-	}
-	
-	public String getName()
-	{
-		return name;
-	}
-	
-	public String getColor()
-	{
-		return color;
-	}
+	} 
 }
