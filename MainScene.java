@@ -24,12 +24,11 @@ public class MainScene extends JFrame implements ActionListener
 	     MainScene cl = new MainScene(); 
 	
 	     cl.setTitle("Connect 4");
-	     cl.setSize(1000,1000);
+	     cl.setSize(2000,1000);
 		 cl.setLocationRelativeTo(null);
 		 cl.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 cl.setVisible(true);
 		 cl.setResizable(false);
-
 	}
 			
 	// Declaration of objects of CardLayout class. 
@@ -44,53 +43,77 @@ public class MainScene extends JFrame implements ActionListener
 
  public MainScene() 
  { 
-	 // to get the content 
-     c = getContentPane(); 
+	// to get the content 
+    c = getContentPane(); 
 
-     // Initialization of object "card" 
-     // of CardLayout class with 40  
-     // horizontal space and 30 vertical space . 
-     card = new CardLayout(40, 30); 
+    // Initialization of object "card" 
+    // of CardLayout class with 40  
+    // horizontal space and 30 vertical space . 
+    card = new CardLayout(40, 30); 
 
-     // set the layout 
-     c.setLayout(card); 
+    // set the layout 
+    c.setLayout(card); 
 
-     // Initialization of object "b1" of JButton class. 
-     b1 = new JButton("Page 1"); 
+    // Initialization of object "b1" of JButton class. 
+    b1 = new JButton("Splash Scene"); 
 
-     // Initialization of object "b2" of JButton class. 
-     b2 = new JButton("Page 2"); 
+    // Initialization of object "b2" of JButton class. 
+    b2 = new JButton("Page 2"); 
 
-     // Initialization of object "b3" of JButton class. 
-     b3 = new JButton("Page 3"); 
+    // Initialization of object "b3" of JButton class. 
+    b3 = new JButton("Page 3"); 
      
-     gameScene game = new gameScene(this);
+    mainMenuScene mainMenu = new mainMenuScene(this, new AbstractAction("Game")
+    {
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			// TODO Auto-generated method stub
+			card.show(c, "d");
+		}
+    	
+    });
+    
+	creditsScene credits = new creditsScene(new AbstractAction("Back")
+    {
+
+    	@Override
+		public void actionPerformed(ActionEvent arg0)
+    	{
+    		// TODO Auto-generated method stub
+    		card.previous(c);
+					
+		}  	 
+    });
+    
+	gameScene game = new gameScene(this);
      
-     // this Keyword refers to current object. 
-     // Adding Jbutton "b1" on JFrame using ActionListener. 
-     b1.addActionListener(this); 
+    // this Keyword refers to current object. 
+    // Adding Jbutton "b1" on JFrame using ActionListener. 
+    b1.addActionListener(this); 
 
-     // Adding Jbutton "b2" on JFrame using ActionListener. 
-     b2.addActionListener(this); 
+    // Adding Jbutton "b2" on JFrame using ActionListener. 
+    b2.addActionListener(this); 
 
-     // Adding Jbutton "b3" on JFrame using ActionListener. 
-     b3.addActionListener(this); 
+    // Adding Jbutton "b3" on JFrame using ActionListener. 
+    b3.addActionListener(this); 
      
-     // Adding the JButton "b1" 
-     c.add("a", b1); 
+    // Adding the JButton "b1" 
+    c.add("a", b1); 
 
-     // Adding the JButton "b2" 
-     c.add("b", b2); 
+    // Adding the JButton "b2" 
+    c.add("b", mainMenu); 
 
-     // Adding the JButton "b1" 
-     c.add("c", b3);
+    // Adding the JButton "b1" 
+    c.add("c", credits);
      
-     c.add("d", game);
- } 
+    c.add("d", game);
+} 
  
 	 public void actionPerformed(ActionEvent e) 
 	 { 	       
 	     // call the next card 
 	     card.next(c); 
-	 } 
+	 }
 }
