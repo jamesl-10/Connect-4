@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -9,98 +10,31 @@ import java.awt.event.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class mainMenuScene extends JFrame{
-	public static void main(String[] args){	
-	    mainMenuScene frame = new mainMenuScene();
-	    
-	    frame.setTitle("Connect 4");
-	    frame.setSize(1300,850);
-	    frame.setLocationRelativeTo(null);
-	    frame.getContentPane().setLayout(null);
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.setVisible(true);
-	    
-	    frame.setContentPane(new JLabel(new ImageIcon("resources/goodMainMenu.jpg")));
-	    
+public class mainMenuScene extends JPanel
+{
+	public mainMenuScene(ActionListener credits, ActionListener game)
+	{    
+		this.setLayout(null);
 	    
 	    JButton playButton = new JButton();
-	    playButton.setSize(200,50);
-	    playButton.setLocation(590, 580);
+	    playButton.setBounds(900, 600, 200, 50);
 	    playButton.setText("Play");
-	    frame.add(playButton);
+	    this.add(playButton);
 	    
-	    playButton.addMouseListener(new MouseListener(){
-	    	@Override
-		    public void mouseClicked(MouseEvent e)
-		    {
-		    	// TODO Auto-generated method stub 
-		    }
-
-			@Override
-			public void mouseEntered(MouseEvent e)
-			{
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e)
-			{
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e)
-			{
-				// TODO Auto-generated method stub
-				System.out.print("connect 4 yay");
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-	    });
+	    playButton.addActionListener(game);
 	    
 	    JButton creditsButton = new JButton();
-	    creditsButton.setSize(150,50);
-	    creditsButton.setLocation(1100, 750);
+	    creditsButton.setBounds(1500, 750, 150, 50);
 	    creditsButton.setText("Credits");
-	    frame.add(creditsButton);
+	    this.add(creditsButton);
 	    
-	    creditsButton.addMouseListener(new MouseListener(){
-	    	@Override
-		    public void mouseClicked(MouseEvent e)
-		    {
-		    	// TODO Auto-generated method stub 
-		    }
-
-			@Override
-			public void mouseEntered(MouseEvent e)
-			{
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e)
-			{
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e)
-			{
-				// TODO Auto-generated method stub
-				System.out.print("credits yay");
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-	    });
+	    creditsButton.addActionListener(credits);
 	    
-	    frame.setVisible(true);
+		JLabel picLabel = new JLabel();
+		picLabel.setIcon(new ImageIcon(this.getClass().getResource("resources/goodMainMenu.jpg")));
+		picLabel.setBounds(0, 0, 2000, 1000);
+		this.add(picLabel);
+		
+	    this.setVisible(true);
    }
 }
