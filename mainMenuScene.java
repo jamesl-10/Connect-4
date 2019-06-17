@@ -18,22 +18,22 @@ public class mainMenuScene extends JPanel
 	    
 		// Adds new play button that goes to game scene
 	    JButton playButton = new JButton();
-	    playButton.setBounds(900, 700, 200, 50);
+	    playButton.setBounds(400, 600, 200, 50);
 	    playButton.setText("Play");
 	    this.add(playButton);
 	    playButton.addActionListener(game);
 	    
 	    // Adds new credits button that goes to credits scene
 	    JButton creditsButton = new JButton();
-	    creditsButton.setBounds(925, 800, 150, 50);
+	    creditsButton.setBounds(425, 700, 150, 50);
 	    creditsButton.setText("Credits");
 	    this.add(creditsButton);
 	    creditsButton.addActionListener(credits);
 	    
 	    // Background image
 		JLabel picLabel = new JLabel();
-		picLabel.setIcon(new ImageIcon(this.getClass().getResource("resources/goodMainMenu.jpg")));
-		picLabel.setBounds(0, 0, 1900, 1000);
+		picLabel.setIcon(new ImageIcon(this.getClass().getResource("resources/mainMenu.jpg")));
+		picLabel.setBounds(0, 0, 1000, 900);
 		this.add(picLabel);
 		
 	    this.setVisible(true);
