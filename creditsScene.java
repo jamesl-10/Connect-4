@@ -17,7 +17,7 @@ public class creditsScene extends JPanel
 		
 		// Creates a play button
 	    JButton playButton = new JButton();
-	    playButton.setBounds(900, 700, 200, 50);
+	    playButton.setBounds(400, 600, 200, 50);
 	    playButton.setText("Main Menu");
 	    this.add(playButton);
 	    
@@ -27,7 +27,7 @@ public class creditsScene extends JPanel
 	    // Background image
 	    JLabel picLabel = new JLabel();
 		picLabel.setIcon(new ImageIcon(this.getClass().getResource("resources/credits.jpg")));
-		picLabel.setBounds(0, 0, 1900, 1000);
+		picLabel.setBounds(0, 0, 1000, 900);
 		this.add(picLabel);
 	    
 	    this.setVisible(true);
