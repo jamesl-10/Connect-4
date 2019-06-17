@@ -3,117 +3,126 @@
  * Created by: James Lee
  * Created on: June 2019
  * Created for: ICS4U
- * Connect 4 code, main game
+ * The main scene, where all the other scenes are handled
+ * 
+ * Scenes : 
+ * 
+ * Splash Scene
+ * MainMenuScene
+ * GameScene
+ * CreditsScene
  * 
  ****************************************************************************/
-
-//Java program to illustrate the CardLayout Class 
+ 
 import java.awt.*; 
 import java.awt.event.*;
-
-import javax.imageio.ImageIO;
 import javax.swing.*; 
 
-//class extends JFrame and implements actionlistener 
+// Class extends JFrame and implements actionlistener 
 public class MainScene extends JFrame implements ActionListener
 { 
-	 // Main Method 
-	 public static void main(String[] args) 
-	 { 
-	     // Creating Object of CardLayout class. 
-	     MainScene cl = new MainScene(); 
-	
-	     cl.setTitle("Connect 4");
-	     cl.setSize(2000,1000);
-		 cl.setLocationRelativeTo(null);
-		 cl.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 cl.setVisible(true);
-		 cl.setResizable(false);
+	 // Main 
+	public static void main(String[] args) 
+	{ 
+		// Creating Object of CardLayout class. 
+		MainScene cl = new MainScene(); 
+		
+		cl.setTitle("Connect 4");
+		cl.setSize(1900,1000);
+		cl.setLocationRelativeTo(null);
+		cl.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		cl.setVisible(true);
+		cl.setResizable(false);
 	}
-			
-	// Declaration of objects of CardLayout class. 
-	CardLayout card; 
 
-	// Declaration of objects of JButton class. 
-	JButton b1, b2, b3;
-
-	// Declaration of objects 
-	// of Container class. 
-	Container c; 
-
- public MainScene() 
- { 
-	// to get the content 
-    c = getContentPane(); 
-
-    // Initialization of object "card" 
-    // of CardLayout class with 40  
-    // horizontal space and 30 vertical space . 
-    card = new CardLayout(40, 30); 
-
-    // set the layout 
-    c.setLayout(card); 
-
-    // Initialization of object "b1" of JButton class. 
-    b1 = new JButton("Splash Scene"); 
-
-    // Initialization of object "b2" of JButton class. 
-    b2 = new JButton("Page 2"); 
-
-    // Initialization of object "b3" of JButton class. 
-    b3 = new JButton("Page 3"); 
-     
-    mainMenuScene mainMenu = new mainMenuScene(this, new AbstractAction("Game")
-    {
-
-		@Override
-		public void actionPerformed(ActionEvent e)
-		{
-			// TODO Auto-generated method stub
-			card.show(c, "d");
-		}
-    	
-    });
-    
-	creditsScene credits = new creditsScene(new AbstractAction("Back")
-    {
-
-    	@Override
-		public void actionPerformed(ActionEvent arg0)
-    	{
-    		// TODO Auto-generated method stub
-    		card.previous(c);
+	CardLayout card;
+	Container c;
+	
+	public MainScene() 
+	{ 
+		// To get the content 
+		c = getContentPane(); 
+	    
+	    // Make new card layout
+	    card = new CardLayout(); 
+	
+	    // Set the layout 
+	    c.setLayout(card); 
+	    
+	    // Create scenes
+	    
+	    // Splash scene
+	    SplashScreen splashScreen = new SplashScreen(this);
+		
+	    // Main Menu
+	    mainMenuScene mainMenu = new mainMenuScene(this, new AbstractAction("Game")
+	    {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				// TODO Auto-generated method stub
+				// Creates new game everytime play button is clicked
+				gameScene game = new gameScene(new AbstractAction("Main Menu")
+				{
+					@Override
+					public void actionPerformed(ActionEvent arg0)
+					{
+						// TODO Auto-generated method stub
+						card.show(c, "mainMenuScene");
+					}
 					
-		}  	 
-    });
-    
-	gameScene game = new gameScene(this);
-     
-    // this Keyword refers to current object. 
-    // Adding Jbutton "b1" on JFrame using ActionListener. 
-    b1.addActionListener(this); 
+				});
+				
+			    c.add("gameScene", game);
+				card.show(c, "gameScene");
+			}   	
+	    });
+	    
+	    // Credits scene
+		creditsScene credits = new creditsScene(new AbstractAction("Back")
+	    {
+	
+	    	@Override
+			public void actionPerformed(ActionEvent arg0)
+	    	{
+	    		// TODO Auto-generated method stub
+	    		card.previous(c);
+						
+			}  	 
+	    });
+		
+		// Adds scenes to container
+	    c.add("SplashScreen", splashScreen); 
+	    c.add("mainMenuScene", mainMenu); 
+	    c.add("creditsScene", credits);     
+	} 
 
-    // Adding Jbutton "b2" on JFrame using ActionListener. 
-    b2.addActionListener(this); 
+	// Default action
+ 	public void actionPerformed(ActionEvent e) 
+	{ 	       
+	    // call the next card 
+	    card.next(c); 
+	}
+}
 
-    // Adding Jbutton "b3" on JFrame using ActionListener. 
-    b3.addActionListener(this); 
-     
-    // Adding the JButton "b1" 
-    c.add("a", b1); 
-
-    // Adding the JButton "b2" 
-    c.add("b", mainMenu); 
-
-    // Adding the JButton "b1" 
-    c.add("c", credits);
-     
-    c.add("d", game);
-} 
- 
-	 public void actionPerformed(ActionEvent e) 
-	 { 	       
-	     // call the next card 
-	     card.next(c); 
-	 }
+// Enum for colors in game scene
+// Chip colors
+enum COLORS
+{
+	BLUE("Blue"),
+	WHITE("White");
+	
+	private final String color;
+	
+	// Constructor
+	private COLORS(String color)
+	{
+		this.color = color;
+	}
+	
+	// Returns color
+	public String getColor()
+	{
+		return color;
+	}
 }
