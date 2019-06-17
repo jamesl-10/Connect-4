@@ -1,20 +1,27 @@
-class Player
+/****************************************************************************
+ *
+ * Created by: James Lee
+ * Created on: June 2019
+ * Created for: ICS4U
+ * Connect 4 code, coin class
+ * 
+ * Coins used in the game
+ * 
+ ****************************************************************************/
+
+class Coin
 {
-	private String name;
-	private String color;
+	// Properties
+	private COLORS color;
 	
-	public Player(String name, String color)
+	// Constructor
+	public Coin(COLORS color)
 	{
-		this.name = name;
 		this.color = color;
 	}
 	
-	public String getName()
-	{
-		return name;
-	}
-	
-	public String getColor()
+	// Returns color
+	public COLORS getColor()
 	{
 		return color;
 	}
