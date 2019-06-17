@@ -1,67 +1,35 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.event.*;
+/****************************************************************************
+ * Created by: Shuvaethy Neill
+ * Created on: June 2019
+ * Created for: ICS4U
+ * This program is the credits scene
+ ****************************************************************************/
 
-import javax.imageio.ImageIO;
+import java.awt.event.*;
 import javax.swing.*;
 
-public class creditsScene extends JFrame{
-	public static void main(String[] args){	
-	    mainMenuScene frame = new mainMenuScene();
-	    
-	    frame.setTitle("Credits Scene");
-	    frame.setSize(1300,850);
-	    frame.setLocationRelativeTo(null);
-	    frame.getContentPane().setLayout(null);
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.setVisible(true);
-	    
-	    frame.setContentPane(new JLabel(new ImageIcon("resources/credits.jpg")));
-	    
-	    
+public class creditsScene extends JPanel
+{
+	// Constructor
+	public creditsScene(ActionListener mainMenu)
+	{	
+		this.setLayout(null);
+		
+		// Creates a play button
 	    JButton playButton = new JButton();
-	    playButton.setSize(200,50);
-	    playButton.setLocation(560, 580);
+	    playButton.setBounds(900, 700, 200, 50);
 	    playButton.setText("Main Menu");
-	    frame.add(playButton);
+	    this.add(playButton);
 	    
-	    playButton.addMouseListener(new MouseListener(){
-	    	@Override
-		    public void mouseClicked(MouseEvent e)
-		    {
-		    	// TODO Auto-generated method stub 
-		    }
-
-			@Override
-			public void mouseEntered(MouseEvent e)
-			{
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e)
-			{
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e)
-			{
-				// TODO Auto-generated method stub
-				System.out.print("this should take you to the main menu");
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-	    });
+	    // adds action to go back to main menu
+	    playButton.addActionListener(mainMenu);
 	    
-	    frame.setVisible(true);
-   }
+	    // Background image
+	    JLabel picLabel = new JLabel();
+		picLabel.setIcon(new ImageIcon(this.getClass().getResource("resources/credits.jpg")));
+		picLabel.setBounds(0, 0, 1900, 1000);
+		this.add(picLabel);
+	    
+	    this.setVisible(true);
+	}
 }
