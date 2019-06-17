@@ -39,28 +39,28 @@ public class gameScene extends JPanel
 		
 		// Makes an 6 x 8 grid for game panel
 	    board.setLayout(new GridLayout(6, 8));
-	    board.setBounds(500, 50, 960, 720);
+	    board.setBounds(200, 75, 600, 450);
 	    
 	    // Makes button that returns user to main menu
 		JButton backButton = new JButton();
 		backButton.addActionListener(backToMain);
-		backButton.setBounds(500, 800, 300, 100);
+		backButton.setBounds(300, 550, 100, 50);
 		backButton.setText("Back");
 	    
 		// Label that shows winner
 		JLabel winnerLabel = new JLabel();
-		winnerLabel.setBounds(1000,800,350,100);
-		winnerLabel.setFont(new Font("Arial Unicode MS", Font.PLAIN, 30));
+		winnerLabel.setBounds(500, 550, 250, 50);
+		winnerLabel.setFont(new Font("Arial Unicode MS", Font.PLAIN, 20));
 		
 		// Label that shows which player's turn it is
 		JLabel turnLabel = new JLabel();
-		turnLabel.setBounds(1000,800,300,100);
-		turnLabel.setFont(new Font("Arial Unicode MS", Font.PLAIN, 30));
+		turnLabel.setBounds(500, 550, 250, 50);
+		turnLabel.setFont(new Font("Arial Unicode MS", Font.PLAIN, 20));
 		
 		// Background
 		JLabel picLabel = new JLabel();
-		picLabel.setIcon(new ImageIcon(this.getClass().getResource("resources/goodMainMenu.jpg")));
-		picLabel.setBounds(0, 0, 1900, 1000);
+		picLabel.setIcon(new ImageIcon(this.getClass().getResource("resources/mainMenu.jpg")));
+		picLabel.setBounds(0, 0, 1000, 900);
 		
 		// Creates players
 	    Player p1 = new Player("Player 1", COLORS.BLUE);
@@ -80,7 +80,7 @@ public class gameScene extends JPanel
 	    	{
 	    		// Creates new spot
 	    		Spot spot = new Spot(j,i);
-	    		spot.setSize(120,120);
+	    		spot.setSize(75,75);
 	    		spots[j][i] = spot;
 	    		board.add(spot);
 	    		
