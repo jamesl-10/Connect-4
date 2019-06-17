@@ -28,7 +28,7 @@ public class MainScene extends JFrame implements ActionListener
 		MainScene cl = new MainScene(); 
 		
 		cl.setTitle("Connect 4");
-		cl.setSize(1900,1000);
+		cl.setSize(1000,850);
 		cl.setLocationRelativeTo(null);
 		cl.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		cl.setVisible(true);
