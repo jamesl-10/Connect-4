@@ -1,31 +1,47 @@
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
+/****************************************************************************
+ * Created by: Shuvaethy Neill
+ * Created on: June 2019
+ * Created for: ICS4U
+ * This program is the splash screen
+ ****************************************************************************/
+
+import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JWindow;
-import javax.swing.SwingConstants;
 
-public class SplashScreen {
-
-  public static void main(String[] args) {
-	  JWindow window = new JWindow();
-	  window.getContentPane().add(
-	      new JLabel("", new ImageIcon(("resources/MT_Game_Studio.png")), SwingConstants.CENTER));
-	  window.setBounds(65, 10, 1300, 1000);
-	  window.setVisible(true);
-	  try {
-	      Thread.sleep(4000);
-	  } catch (InterruptedException e) {
-	      e.printStackTrace();
-	  }
-	  window.setVisible(false);
-	  JFrame frame = new JFrame();
-	  frame.add(new JLabel("Main Menu"));
-	  frame.setVisible(true);
-	  frame.setSize(900,900);
-	  window.dispose();
-  }
+public class SplashScreen extends JPanel
+{
+	// Constructor
+	public SplashScreen(ActionListener mainMenu)
+	{
+		// Creates timer
+		Timer timer = new Timer();
+		
+		// Background
+		JLabel picLabel = new JLabel();
+		picLabel.setIcon(new ImageIcon(this.getClass().getResource("resources/MT_Game_Studio_Logo.JPG")));
+		picLabel.setBounds(0, 0, 2000, 1000);
+		this.add(picLabel);
+		
+		// Creates invisible button to trigger an action event
+		JButton nextButton = new JButton();
+		nextButton.setVisible(false);
+		nextButton.addActionListener(mainMenu);
+		
+		// Runs event (next scene)
+		timer.schedule(new TimerTask()
+		{
+			@Override
+			public void run()
+			{
+				nextButton.doClick();
+			}
+			
+		}, 3000);
+	}
 }
